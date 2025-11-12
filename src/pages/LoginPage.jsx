@@ -48,7 +48,7 @@ export default function LoginPage() {
       
       const result = await signInWithPopup(auth, googleProvider)
       console.log('Google Sign-in successful:', result.user)
-      toast.success(`Welcome ${result.user.displayName || 'back'}! 🎉`)
+      toast.success(`Welcome ${result.user.displayName || 'back'}! `)
       navigate(from, { replace: true })
     } catch (err) {
       console.error('Google sign-in error:', err)

@@ -394,8 +394,21 @@ export default function AddHabit() {
         {/* User Info Card */}
         <div className="bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-2xl border-2 border-orange-100">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
-              {user?.displayName?.charAt(0) || user?.email?.charAt(0) || 'U'}
+            <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-orange-300">
+              {user?.photoURL ? (
+                <img 
+                  src={user.photoURL} 
+                  alt={user.displayName || 'User'} 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.style.display = 'none'
+                    e.target.nextSibling.style.display = 'flex'
+                  }}
+                />
+              ) : null}
+              <div className={`w-full h-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white font-bold text-xl ${user?.photoURL ? 'hidden' : ''}`}>
+                {user?.displayName?.charAt(0) || user?.email?.charAt(0) || 'U'}
+              </div>
             </div>
             <div>
               <div className="text-sm font-semibold text-gray-500">Created by</div>
