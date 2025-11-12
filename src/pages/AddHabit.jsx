@@ -14,8 +14,10 @@ export default function AddHabit() {
     description: '',
     category: '',
     reminderTime: '',
+    imageUrl: '',
   })
   const [imageFile, setImageFile] = useState(null)
+  const [imageOption, setImageOption] = useState('url') // 'url' or 'upload'
   const [uploading, setUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
 
@@ -73,11 +75,15 @@ export default function AddHabit() {
     try {
       let imageUrl = null
       
-      // Upload image to ImgBB if provided
-      if (imageFile) {
+      // Handle image based on selected option
+      if (imageOption === 'upload' && imageFile) {
+        // Upload image to ImgBB if file is provided
         setUploading(true)
         imageUrl = await uploadImageToImgBB(imageFile)
         setUploading(false)
+      } else if (imageOption === 'url' && formData.imageUrl) {
+        // Use provided image URL
+        imageUrl = formData.imageUrl
       }
 
       // Prepare habit data
@@ -103,8 +109,10 @@ export default function AddHabit() {
           description: '',
           category: '',
           reminderTime: '',
+          imageUrl: '',
         })
         setImageFile(null)
+        setImageOption('url')
         // Reset file input
         const fileInput = document.getElementById('imageInput')
         if (fileInput) fileInput.value = ''
@@ -237,34 +245,150 @@ export default function AddHabit() {
           </div>
         </div>
 
-        {/* Image Upload */}
+        {/* Image Section */}
         <div className="form-control">
           <label className="label">
             <span className="label-text text-lg font-bold text-gray-700 flex items-center gap-2">
               <span className="text-2xl">🖼️</span> Add Image (Optional)
             </span>
           </label>
-          <div className="relative">
-            <input
-              id="imageInput"
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="file-input file-input-bordered w-full h-14 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all rounded-xl"
-            />
-            {imageFile && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg flex items-center gap-2"
-              >
-                <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          
+          {/* Image Option Selector */}
+          <div className="flex gap-3 mb-4">
+            <button
+              type="button"
+              onClick={() => setImageOption('url')}
+              className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all duration-300 ${
+                imageOption === 'url'
+                  ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              <div className="flex items-center justify-center gap-2">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                 </svg>
-                <span className="text-sm font-medium text-green-700">Selected: {imageFile.name}</span>
-              </motion.div>
-            )}
+                Image URL
+              </div>
+            </button>
+            <button
+              type="button"
+              onClick={() => setImageOption('upload')}
+              className={`flex-1 py-3 px-4 rounded-xl font-semibold transition-all duration-300 ${
+                imageOption === 'upload'
+                  ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              <div className="flex items-center justify-center gap-2">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                Upload Photo
+              </div>
+            </button>
           </div>
+
+          {/* Image URL Input */}
+          {imageOption === 'url' && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="relative">
+                <input
+                  type="url"
+                  name="imageUrl"
+                  value={formData.imageUrl}
+                  onChange={handleChange}
+                  placeholder="https://example.com/image.jpg"
+                  className="input input-bordered w-full h-14 text-base focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all rounded-xl pl-12"
+                />
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                  <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                </div>
+              </div>
+              {formData.imageUrl && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="mt-3 space-y-3"
+                >
+                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-xl">
+                    <div className="flex items-start gap-3">
+                      <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-blue-700 mb-1">Image URL Preview:</p>
+                        <p className="text-xs text-blue-600 break-all">{formData.imageUrl}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="relative w-full h-48 bg-gray-100 rounded-xl overflow-hidden border-2 border-gray-200">
+                    <img 
+                      src={formData.imageUrl} 
+                      alt="Preview" 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.style.display = 'none'
+                        e.target.nextSibling.style.display = 'flex'
+                      }}
+                    />
+                    <div className="absolute inset-0 hidden items-center justify-center bg-gray-100">
+                      <div className="text-center p-4">
+                        <svg className="w-12 h-12 text-gray-400 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <p className="text-sm text-gray-500">Unable to load image</p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </motion.div>
+          )}
+
+          {/* File Upload Input */}
+          {imageOption === 'upload' && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <input
+                id="imageInput"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="file-input file-input-bordered w-full h-14 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all rounded-xl"
+              />
+              {imageFile && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-3 space-y-3"
+                >
+                  <div className="p-3 bg-green-50 border border-green-200 rounded-xl flex items-center gap-2">
+                    <svg className="w-5 h-5 text-green-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="text-sm font-medium text-green-700">Selected: {imageFile.name}</span>
+                  </div>
+                  <div className="relative w-full h-48 bg-gray-100 rounded-xl overflow-hidden border-2 border-gray-200">
+                    <img 
+                      src={URL.createObjectURL(imageFile)} 
+                      alt="Preview" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </motion.div>
+          )}
         </div>
 
         {/* User Info Card */}
