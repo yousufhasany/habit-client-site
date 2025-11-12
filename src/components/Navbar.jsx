@@ -102,7 +102,13 @@ export default function Navbar() {
                 >
                   <div className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-orange-300 group-hover:ring-orange-400 transition-all">
                     {user.photoURL ? (
-                      <img src={user.photoURL} alt="user" className="w-full h-full object-cover" />
+                      <img 
+                        src={user.photoURL} 
+                        alt="user" 
+                        className="w-full h-full object-cover" 
+                        referrerPolicy="no-referrer"
+                        crossOrigin="anonymous"
+                      />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white font-bold text-sm">
                         {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}

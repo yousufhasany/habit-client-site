@@ -400,6 +400,8 @@ export default function AddHabit() {
                   src={user.photoURL} 
                   alt={user.displayName || 'User'} 
                   className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                  crossOrigin="anonymous"
                   onError={(e) => {
                     e.target.style.display = 'none'
                     e.target.nextSibling.style.display = 'flex'
