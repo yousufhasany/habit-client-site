@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-// Create axios instance with base URL
+// Create axios instance with base URL from environment variable
 const axiosSecure = axios.create({
-  baseURL: 'http://localhost:5000'
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000'
 })
 
 // Request interceptor to add authorization header

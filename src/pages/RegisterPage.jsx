@@ -34,10 +34,25 @@ export default function RegisterPage() {
       toast.error('Please enter your email')
       return false
     }
+    
+    // Password validation
     if (formData.password.length < 6) {
       toast.error('Password must be at least 6 characters')
       return false
     }
+    
+    // Check for uppercase letter
+    if (!/[A-Z]/.test(formData.password)) {
+      toast.error('Password must contain at least one uppercase letter')
+      return false
+    }
+    
+    // Check for lowercase letter
+    if (!/[a-z]/.test(formData.password)) {
+      toast.error('Password must contain at least one lowercase letter')
+      return false
+    }
+    
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match')
       return false
@@ -245,7 +260,26 @@ export default function RegisterPage() {
                   )}
                 </button>
               </div>
-              <p className="mt-1 text-xs text-gray-500">Must be at least 6 characters</p>
+              <div className="mt-2 space-y-1">
+                <p className="text-xs text-gray-600 flex items-center gap-1">
+                  <span className={formData.password.length >= 6 ? 'text-green-600' : 'text-gray-400'}>
+                    {formData.password.length >= 6 ? '✓' : '○'}
+                  </span>
+                  At least 6 characters
+                </p>
+                <p className="text-xs text-gray-600 flex items-center gap-1">
+                  <span className={/[A-Z]/.test(formData.password) ? 'text-green-600' : 'text-gray-400'}>
+                    {/[A-Z]/.test(formData.password) ? '✓' : '○'}
+                  </span>
+                  One uppercase letter
+                </p>
+                <p className="text-xs text-gray-600 flex items-center gap-1">
+                  <span className={/[a-z]/.test(formData.password) ? 'text-green-600' : 'text-gray-400'}>
+                    {/[a-z]/.test(formData.password) ? '✓' : '○'}
+                  </span>
+                  One lowercase letter
+                </p>
+              </div>
             </div>
 
             {/* Confirm Password Input */}

@@ -12,7 +12,8 @@ export default function FeaturedHabits() {
     async function load() {
       try {
         // Fetch public habits from MongoDB backend
-        const response = await axios.get('http://localhost:5000/habits/public')
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+        const response = await axios.get(`${apiUrl}/habits/public`)
         if (cancelled) return
         
         // Get first 6 habits for featured section
@@ -76,7 +77,7 @@ export default function FeaturedHabits() {
             )}
             {habits.map((h, index) => (
               <article 
-                key={h.id} 
+                key={h._id} 
                 className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border-2 border-gray-100 hover:border-orange-200 overflow-hidden"
                 style={{ 
                   animation: 'fadeInUp 0.6s ease-out forwards',
@@ -183,7 +184,7 @@ export default function FeaturedHabits() {
                     </div>
                     <a 
                       className="btn px-5 py-2 text-sm font-bold bg-gradient-to-r from-orange-500 to-red-500 text-white border-none hover:from-orange-600 hover:to-red-600 shadow-md hover:shadow-xl transform hover:scale-110 transition-all duration-300 rounded-xl flex items-center gap-1" 
-                      href={`/habit/${h.id}`}
+                      href={`/habit/${h._id}`}
                     >
                       View
                       <ArrowRight className="w-4 h-4" />

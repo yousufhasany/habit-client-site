@@ -16,7 +16,8 @@ export function AuthProvider({ children }) {
       // Generate JWT token when user logs in
       if (u?.email) {
         try {
-          const response = await axios.post('http://localhost:5000/jwt', {
+          const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+          const response = await axios.post(`${apiUrl}/jwt`, {
             email: u.email,
             name: u.displayName || u.email
           })

@@ -48,13 +48,14 @@ export default function BrowsePublicHabits() {
   const fetchPublicHabits = async () => {
     try {
       setLoading(true)
-      const response = await axios.get('http://localhost:5000/habits/public')
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+      const response = await axios.get(`${apiUrl}/habits/public`)
       setHabits(response.data)
       setFilteredHabits(response.data)
     } catch (error) {
       console.error('Error fetching public habits:', error)
       if (error.code === 'ERR_NETWORK') {
-        toast.error('Cannot connect to server. Please make sure the backend is running on http://localhost:5000')
+        toast.error('Cannot connect to server. Please check your backend URL.')
       } else {
         toast.error('Failed to load habits. Please try again.')
       }

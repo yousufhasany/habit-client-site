@@ -112,10 +112,17 @@ export default function HabitDetails() {
 
   const calculateProgress = () => {
     if (!habit?.completionHistory) return 0
-    // Calculate progress for the current week (7 days)
-    const completionCount = habit.completionHistory.length
-    const targetDays = 7
-    return Math.min((completionCount / targetDays) * 100, 100)
+    // Calculate progress for the last 30 days
+    const today = new Date()
+    const thirtyDaysAgo = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000))
+    
+    const completionsInLast30Days = habit.completionHistory.filter(date => {
+      const completionDate = new Date(date)
+      return completionDate >= thirtyDaysAgo && completionDate <= today
+    }).length
+    
+    const targetDays = 30
+    return Math.min((completionsInLast30Days / targetDays) * 100, 100)
   }
 
   const handleMarkComplete = async () => {
@@ -326,10 +333,18 @@ export default function HabitDetails() {
                 <div className="flex justify-between items-center mb-3">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="w-5 h-5 text-orange-600" />
-                    <span className="font-bold text-gray-800">Weekly Progress</span>
+                    <span className="font-bold text-gray-800">30-Day Progress</span>
                   </div>
                   <span className="text-sm font-semibold text-gray-600 bg-white px-3 py-1 rounded-full">
-                    {habit.completionHistory?.length || 0} / 7 days
+                    {(() => {
+                      const today = new Date()
+                      const thirtyDaysAgo = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000))
+                      const count = habit.completionHistory?.filter(date => {
+                        const completionDate = new Date(date)
+                        return completionDate >= thirtyDaysAgo && completionDate <= today
+                      }).length || 0
+                      return `${count} / 30 days`
+                    })()}
                   </span>
                 </div>
                 <div className="relative h-4 bg-gray-200 rounded-full overflow-hidden">

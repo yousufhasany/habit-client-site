@@ -84,7 +84,7 @@ export default function MyHabits() {
     } catch (error) {
       console.error('Error fetching habits:', error)
       if (error.code === 'ERR_NETWORK') {
-        toast.error('Cannot connect to server. Please make sure the backend is running on http://localhost:5000')
+        toast.error('Cannot connect to server. Please check your backend URL.')
       } else if (error.response?.status === 401) {
         toast.error('Session expired. Please login again.')
       } else {
