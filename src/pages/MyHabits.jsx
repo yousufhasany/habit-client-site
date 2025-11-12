@@ -336,11 +336,11 @@ export default function MyHabits() {
 
       {/* Update Modal */}
       {showUpdateModal && (
-        <div className="modal modal-open backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="modal-box max-w-2xl bg-white rounded-3xl shadow-2xl border-2 border-gray-100 p-0 overflow-hidden"
+            className="w-full max-w-2xl bg-white rounded-3xl shadow-2xl border-2 border-gray-100 overflow-hidden max-h-[90vh] overflow-y-auto"
           >
             {/* Header with Gradient */}
             <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-6 relative overflow-hidden">
@@ -476,11 +476,11 @@ export default function MyHabits() {
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="modal modal-open backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="modal-box max-w-lg bg-white rounded-3xl shadow-2xl border-2 border-gray-100 p-0 overflow-hidden"
+            className="w-full max-w-lg bg-white rounded-3xl shadow-2xl border-2 border-gray-100 overflow-hidden"
           >
             {/* Header with Red Gradient */}
             <div className="bg-gradient-to-r from-red-500 to-pink-600 p-6 relative overflow-hidden">
