@@ -134,7 +134,7 @@ export default function BrowsePublicHabits() {
             >
               Loading amazing habits...
             </motion.p>
-            <p className="mt-2 text-gray-500">Discover inspiring journeys ✨</p>
+            <p className="mt-2 text-gray-500 flex items-center justify-center gap-2">Discover inspiring journeys <Sparkles className="w-4 h-4 text-yellow-500" /></p>
           </div>
         </div>
       </div>

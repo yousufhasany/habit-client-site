@@ -1,26 +1,28 @@
+import { Target, Focus, TrendingUp, Users } from 'lucide-react'
+
 const cards = [
   { 
     title: 'Consistency', 
     desc: 'Small daily actions compound into lasting change.',
-    icon: '🎯',
+    icon: Target,
     color: 'from-blue-500 to-cyan-500'
   },
   { 
     title: 'Focus', 
     desc: 'Reduce decision fatigue by automating healthy routines.',
-    icon: '🎪',
+    icon: Focus,
     color: 'from-purple-500 to-pink-500'
   },
   { 
     title: 'Progress', 
     desc: 'Track what matters and celebrate wins.',
-    icon: '📈',
+    icon: TrendingUp,
     color: 'from-green-500 to-emerald-500'
   },
   { 
     title: 'Community', 
     desc: 'Share and learn from others to stay motivated.',
-    icon: '🤝',
+    icon: Users,
     color: 'from-orange-500 to-red-500'
   },
 ]
@@ -43,7 +45,7 @@ export default function WhyBuildHabits() {
             >
               <div className="card-body items-center text-center p-8">
                 <div className={`text-5xl mb-4 w-20 h-20 flex items-center justify-center rounded-2xl bg-gradient-to-br ${c.color} bg-opacity-10 group-hover:scale-110 transition-transform duration-300`}>
-                  {c.icon}
+                  <c.icon className="w-10 h-10 text-gray-700" />
                 </div>
                 <h3 className="card-title text-2xl font-bold mb-2">{c.title}</h3>
                 <p className="text-gray-600">{c.desc}</p>

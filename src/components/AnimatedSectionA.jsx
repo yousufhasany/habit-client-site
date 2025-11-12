@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Zap } from 'lucide-react'
 
 export default function AnimatedSectionA() {
   return (
@@ -16,7 +17,7 @@ export default function AnimatedSectionA() {
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-10 rounded-full -translate-x-1/2 translate-y-1/2"></div>
           
           <div className="relative z-10 max-w-3xl">
-            <div className="text-5xl mb-6">⚡</div>
+            <Zap className="w-16 h-16 mb-6" />
             <h3 className="text-3xl md:text-4xl font-bold mb-4">Build Lasting Routines</h3>
             <p className="text-xl text-green-50 leading-relaxed mb-6">
               Use habit trackers and gentle reminders to make routines automatic. Transform your daily actions into lasting success.

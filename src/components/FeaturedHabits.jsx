@@ -61,7 +61,7 @@ export default function FeaturedHabits() {
                 <div className="absolute inset-0 loading loading-spinner loading-lg text-red-600 opacity-50 blur-sm"></div>
               </div>
               <p className="mt-6 text-lg font-semibold text-gray-700">Loading amazing habits...</p>
-              <p className="mt-2 text-sm text-gray-500">Get ready to be inspired! ✨</p>
+              <p className="mt-2 text-sm text-gray-500 flex items-center justify-center gap-2">Get ready to be inspired! <Sparkles className="w-4 h-4 text-yellow-500" /></p>
             </div>
           </div>
         ) : (

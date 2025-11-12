@@ -4,6 +4,9 @@ import axios from 'axios'
 import axiosSecure from '../utils/axiosSecure'
 import toast from 'react-hot-toast'
 import { motion } from 'framer-motion'
+import { IoMdFitness } from 'react-icons/io'
+import { MdProductionQuantityLimits } from 'react-icons/md'
+import { FaSpa, FaBook, FaUsers, FaStar, FaBullseye, FaFileAlt, FaFolderOpen, FaClock, FaImage } from 'react-icons/fa'
 
 const IMGBB_API_KEY = import.meta.env.VITE_IMGBB_API_KEY || ''
 
@@ -22,12 +25,12 @@ export default function AddHabit() {
   const [submitting, setSubmitting] = useState(false)
 
   const categories = [
-    { name: 'Health & Fitness', icon: '💪', color: 'from-green-500 to-emerald-500' },
-    { name: 'Productivity', icon: '⚡', color: 'from-blue-500 to-cyan-500' },
-    { name: 'Mindfulness', icon: '🧘', color: 'from-purple-500 to-pink-500' },
-    { name: 'Learning', icon: '📚', color: 'from-yellow-500 to-orange-500' },
-    { name: 'Social', icon: '🤝', color: 'from-indigo-500 to-purple-500' },
-    { name: 'Other', icon: '✨', color: 'from-gray-500 to-gray-600' }
+    { name: 'Health & Fitness', icon: IoMdFitness, color: 'from-green-500 to-emerald-500' },
+    { name: 'Productivity', icon: MdProductionQuantityLimits, color: 'from-blue-500 to-cyan-500' },
+    { name: 'Mindfulness', icon: FaSpa, color: 'from-purple-500 to-pink-500' },
+    { name: 'Learning', icon: FaBook, color: 'from-yellow-500 to-orange-500' },
+    { name: 'Social', icon: FaUsers, color: 'from-indigo-500 to-purple-500' },
+    { name: 'Other', icon: FaStar, color: 'from-gray-500 to-gray-600' }
   ]
 
   const handleChange = (e) => {
@@ -143,8 +146,8 @@ export default function AddHabit() {
           <h2 className="text-5xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-3">
             Create New Habit
           </h2>
-          <p className="text-gray-600 text-lg">
-            Start your journey to a better you ✨
+          <p className="text-gray-600 text-lg flex items-center justify-center gap-2">
+            Start your journey to a better you <FaStar className="text-yellow-500" />
           </p>
         </motion.div>
       
@@ -159,7 +162,7 @@ export default function AddHabit() {
         <div className="form-control">
           <label className="label">
             <span className="label-text text-lg font-bold text-gray-700 flex items-center gap-2">
-              <span className="text-2xl">🎯</span> Habit Title *
+              <FaBullseye className="text-2xl text-orange-600" /> Habit Title *
             </span>
           </label>
           <input
@@ -177,7 +180,7 @@ export default function AddHabit() {
         <div className="form-control">
           <label className="label">
             <span className="label-text text-lg font-bold text-gray-700 flex items-center gap-2">
-              <span className="text-2xl">📝</span> Description *
+              <FaFileAlt className="text-2xl text-orange-600" /> Description *
             </span>
           </label>
           <textarea
@@ -194,7 +197,7 @@ export default function AddHabit() {
         <div className="form-control">
           <label className="label">
             <span className="label-text text-lg font-bold text-gray-700 flex items-center gap-2">
-              <span className="text-2xl">📂</span> Category *
+              <FaFolderOpen className="text-2xl text-orange-600" /> Category *
             </span>
           </label>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -211,7 +214,7 @@ export default function AddHabit() {
                     : 'bg-white border-gray-200 hover:border-orange-300 hover:shadow-md'
                 }`}
               >
-                <div className="text-3xl mb-1">{cat.icon}</div>
+                <cat.icon className="text-3xl mb-1" />
                 <div className={`text-sm font-semibold ${
                   formData.category === cat.name ? 'text-white' : 'text-gray-700'
                 }`}>
@@ -226,7 +229,7 @@ export default function AddHabit() {
         <div className="form-control">
           <label className="label">
             <span className="label-text text-lg font-bold text-gray-700 flex items-center gap-2">
-              <span className="text-2xl">⏰</span> Reminder Time (Optional)
+              <FaClock className="text-2xl text-orange-600" /> Reminder Time (Optional)
             </span>
           </label>
           <div className="relative">
@@ -249,7 +252,7 @@ export default function AddHabit() {
         <div className="form-control">
           <label className="label">
             <span className="label-text text-lg font-bold text-gray-700 flex items-center gap-2">
-              <span className="text-2xl">🖼️</span> Add Image (Optional)
+              <FaImage className="text-2xl text-orange-600" /> Add Image (Optional)
             </span>
           </label>
           
